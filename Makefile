@@ -36,5 +36,5 @@ $(EXAMPLE_NAME).lst: $(EXAMPLE_FILE)
 	$(OBJDUMP) -D $< > $@
 
 $(ISR_FILE): $(ISR_SRC)
-	rustc --target=$(TARGET) --emit=obj --cfg mcu_$(PLATFORM) -C opt-level=2 $<
+	rustc --verbose -L target/$(TARGET)/debug/deps --target=$(TARGET) --emit=obj --cfg mcu_$(PLATFORM) -C opt-level=2 $<
 	$(STRIP) -N rust_begin_unwind -N rust_stack_exhausted -N rust_eh_personality $@
