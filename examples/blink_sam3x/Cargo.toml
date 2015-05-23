@@ -1,0 +1,11 @@
+[package]
+name = "blink"
+version = "0.0.1"
+
+[features]
+default = ["mcu_sam3x"]
+mcu_sam3x = ["zinc/mcu_sam3x"]
+
+[dependencies]
+zinc = { path =  "../.." }
+macro_zinc = { path = "../../macro_zinc" }

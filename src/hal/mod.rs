@@ -29,6 +29,7 @@ pub mod lpc11xx;
 #[cfg(feature = "mcu_stm32l1")] pub mod stm32l1;
 #[cfg(feature = "mcu_k20")] pub mod k20;
 #[cfg(feature = "mcu_tiva_c")] pub mod tiva_c;
+#[cfg(feature = "mcu_sam3x")] pub mod sam3x;
 
 #[cfg(any(feature = "cpu_cortex-m0",
           feature = "cpu_cortex-m3",

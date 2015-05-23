@@ -57,3 +57,11 @@ pub trait Adc {
   /// Read analog input value
   fn read(&self) -> u32;
 }
+
+/// Minimal configuration info for a gpio pin
+pub struct GpioConf {
+  /// Index of the GpioPin on the board
+  pub index: usize,
+  /// Direction for the GpioPin
+  pub direction: GpioDirection,
+}
