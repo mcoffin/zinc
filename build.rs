@@ -1,3 +1,4 @@
+use std::ascii::AsciiExt;
 use std::env;
 use std::fs;
 use std::io;
@@ -6,7 +7,9 @@ use std::path::Path;
 fn get_platform() -> Option<String> {
     let features = env::vars().filter(|&(ref key, _)| key.starts_with("CARGO_FEATURE_"));
     match features.last() {
-        Some((feature_var, _)) => Some(feature_var.trim_left_matches("CARGO_FEATURE_").to_string()),
+        Some((feature_var, _)) => Some(
+            feature_var.trim_left_matches("CARGO_FEATURE_")
+                .to_string().to_ascii_lowercase()),
         None => None,
     }
 }
