@@ -51,3 +51,11 @@ pub trait Gpio {
   /// for reading or writing respectively.
   fn set_direction(&self, new_mode: GpioDirection);
 }
+
+/// Minimal configuration info for a gpio pin
+pub struct GpioConf {
+  /// Index of the GpioPin on the board
+  pub index: usize,
+  /// Direction for the GpioPin
+  pub direction: GpioDirection,
+}

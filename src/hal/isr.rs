@@ -28,3 +28,6 @@
 
 #[cfg(feature = "mcu_tiva_c")]
 #[path="tiva_c/isr.rs"] pub mod isr_tiva_c;
+
+#[cfg(feature = "mcu_sam3x")]
+#[path="sam3x/isr.rs"] pub mod sam3x;

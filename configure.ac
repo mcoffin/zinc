@@ -13,7 +13,7 @@ AC_SUBST(CC, $GCC)
 AC_ARG_VAR(PLATFORM, [Platform for which to build])
 
 case $PLATFORM in
-lpc17xx | stm32l1)
+lpc17xx | stm32l1 | sam3x)
 	platform_target=thumbv7m-none-eabi
 	;;
 stm32f4 | k20 | tiva_c)

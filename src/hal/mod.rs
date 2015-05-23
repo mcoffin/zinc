@@ -27,6 +27,7 @@ pub mod stm32f4;
 pub mod stm32l1;
 pub mod k20;
 pub mod tiva_c;
+pub mod sam3x;
 
 mod cortex_common;
 pub mod cortex_m3;
