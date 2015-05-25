@@ -280,4 +280,47 @@ mod test {
     test.reg1[0].set_field(0, true);
     assert_eq!(test.reg1[0].field(0), true);
   }
+
+  ioregs!(ENUM_TEST = {
+      0x0 => reg32 reg1 {
+          0..31 => field {
+              0 => VALUE_0,
+              1 => VALUE_1,
+              3 => VALUE_3,
+              1048576 => VALUE_BIG
+          }
+      }
+  });
+
+  #[test]
+  fn enum_ok() {
+      use self::ENUM_TEST_reg1_field::*;
+      let test: ENUM_TEST = zeroed_safe();
+      test.reg1.set_field(VALUE_3);
+      let mut val: u32 = unsafe {
+          transmute(test.reg1.field())
+      };
+      assert_eq!(val, 3);
+      test.reg1.set_field(VALUE_BIG);
+      val = unsafe {
+          transmute(test.reg1.field())
+      };
+      assert_eq!(val, 1048576);
+  }
+
+  ioregs!(CHAIN_TEST = {
+      0x0 => reg32 reg1 {
+          0..2 => field1,
+          3..7 => field2
+      }
+  });
+
+  #[test]
+  fn chain_ok() {
+      let test: CHAIN_TEST = zeroed_safe();
+
+      test.reg1.set_field1(1).set_field2(4);
+      assert_eq!(test.reg1.field1(), 1);
+      assert_eq!(test.reg1.field2(), 4);
+  }
 }
