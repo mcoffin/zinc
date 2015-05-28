@@ -1,11 +1,15 @@
-#![feature(plugin, no_std, core, start)]
+#![feature(no_std, core, start)]
 #![no_std]
-#![plugin(macro_zinc)]
 
 extern crate core;
 extern crate zinc;
 
-#[zinc_main]
+#[start]
+fn start(_: isize, _: *const *const u8) -> isize {
+  main();
+  0
+}
+
 pub unsafe fn main() {
   use core::option::Option;
   use zinc::hal::pin::Gpio;

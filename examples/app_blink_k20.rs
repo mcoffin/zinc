@@ -1,6 +1,5 @@
-#![feature(plugin, no_std, core, start)]
+#![feature(no_std, core, start)]
 #![no_std]
-#![plugin(macro_zinc)]
 
 extern crate core;
 extern crate zinc;
@@ -25,7 +24,6 @@ pub fn wait(ticks: u32) {
   }
 }
 
-#[zinc_main]
 pub fn main() {
   zinc::hal::mem_init::init_stack();
   zinc::hal::mem_init::init_data();
@@ -42,4 +40,10 @@ pub fn main() {
     led1.set_low();
     wait(10);
   }
+}
+
+#[start]
+fn start(_: isize, _: *const *const u8) -> isize {
+  main();
+  0
 }
