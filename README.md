@@ -30,6 +30,8 @@ Zinc is distributed under Apache-2.0, see LICENSE for more details.
 
 ## Usage
 
+Information on how to create a project with zinc can be found [here on the wiki](https://github.com/hackndev/zinc/wiki/Creating-a-project-with-zinc).
+
 ### Environment Setup
 
 Get a gcc cross-toolchain for arm and make sure it is accessible.
