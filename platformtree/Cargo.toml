@@ -9,6 +9,7 @@ plugin = true
 
 [dependencies]
 regex = "*"
+syntaxext_lint = "*"
 
 [dev-dependencies.hamcrest]
 git = "https://github.com/carllerche/hamcrest-rust.git"

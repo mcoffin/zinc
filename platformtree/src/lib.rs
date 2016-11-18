@@ -15,7 +15,9 @@
 
 //! Platform tree operations crate
 
-#![feature(quote, rustc_private)]
+#![feature(quote, rustc_private, plugin)]
+
+#![plugin(syntaxext_lint)]
 
 // extern crate regex;
 extern crate syntax;

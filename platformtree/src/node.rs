@@ -18,7 +18,7 @@ use std::collections::HashMap;
 use std::fmt;
 use std::ops::DerefMut;
 use std::rc::{Rc, Weak};
-use syntax::codemap::{Span, DUMMY_SP};
+use syntax::codemap::{Span, Spanned, DUMMY_SP};
 use syntax::ext::base::ExtCtxt;
 
 use builder::Builder;
@@ -72,6 +72,9 @@ impl Attribute {
   }
 
   /// Creates a new attribute with DUMMY_SP for key and value.
+  // Dummy spans allowed here because we're explicitly creating an unspanned
+  // attribute
+  #[allow(dummy_span)]
   pub fn new_nosp(value: AttributeValue) -> Attribute {
     Attribute {
       value: value,
@@ -279,6 +282,18 @@ impl Node {
     self.attributes.borrow().get(&key.to_string()).and_then(|av| match av.value {
       StrValue(ref s) => Some(s.clone()),
       _ => None,
+    })
+  }
+
+  /// Returns a spanned string attribute by name or None, if its not present nor not of
+  /// a StrAtrribute type. Keeps span information.
+  pub fn get_string_attr_sp(&self, key: &str) -> Option<Spanned<String>> {
+    self.attributes.borrow().get(&key.to_string()).and_then(|av| match av.value {
+      StrValue(ref s) => Some(Spanned {
+        node: s.clone(),
+        span: av.value_span,
+      }),
+      _ => None
     })
   }
 

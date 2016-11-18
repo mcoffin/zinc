@@ -14,6 +14,7 @@
 // limitations under the License.
 
 use std::rc::Rc;
+use syntax::codemap::DUMMY_SP;
 use syntax::ext::base::ExtCtxt;
 use syntax::ext::build::AstBuilder;
 
@@ -24,15 +25,17 @@ pub fn attach(_: &mut Builder, _: &mut ExtCtxt, node: Rc<node::Node>) {
   node.materializer.set(Some(build_clock as fn(&mut Builder, &mut ExtCtxt, Rc<node::Node>)));
 }
 
+// Dummy spans allowed becuase `system_frequency` key comes from hard-coding
+#[allow(dummy_span)]
 fn build_clock(builder: &mut Builder, cx: &mut ExtCtxt,
     node: Rc<node::Node>) {
   if !node.expect_attributes(cx, &[("source", node::StrAttribute)]) {
     return;
   }
 
-  let source = node.get_string_attr("source").unwrap();
+  let source = node.get_string_attr_sp("source").unwrap();
   let source_freq: usize;
-  let clock_source = TokenString(match source.as_str() {
+  let clock_source = TokenString(match source.node.as_str() {
     "internal-oscillator" => {
       source_freq = 4_000_000;
       "system_clock::Internal".to_string()
@@ -55,7 +58,7 @@ fn build_clock(builder: &mut Builder, cx: &mut ExtCtxt,
     other => {
       source_freq = 0;
       cx.span_err(
-          node.get_attr("source").value_span,
+          source.span,
           format!("unknown oscillator value `{}`", other).as_str());
       "BAD".to_string()
     },
@@ -88,8 +91,13 @@ fn build_clock(builder: &mut Builder, cx: &mut ExtCtxt,
 
   let sysfreq = source_freq * 2 * pll_m as usize / pll_n as usize
       / pll_divisor as usize;
+  let sysfreq_attr = node::Attribute::new(
+    node::IntValue(sysfreq),
+    DUMMY_SP,
+    source.span
+  );
   node.attributes.borrow_mut().insert("system_frequency".to_string(),
-      Rc::new(node::Attribute::new_nosp(node::IntValue(sysfreq))));
+    Rc::new(sysfreq_attr));
 
   let ex = quote_expr!(&*cx,
       {
