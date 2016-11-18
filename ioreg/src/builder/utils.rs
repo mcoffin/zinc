@@ -58,6 +58,8 @@ fn list_attribute_spanned(cx: &ExtCtxt, name: Spanned<&'static str>,
 }
 
 /// Generate a `#[doc="..."]` attribute of the given type
+// Dummy spans allowed here since doc attributes come purely from the plugin
+#[allow(dummy_span)]
 pub fn doc_attribute(cx: &ExtCtxt, docstring: token::InternedString)
                      -> ast::Attribute {
   use syntax::codemap::DUMMY_SP;

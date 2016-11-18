@@ -11,3 +11,4 @@ plugin = true
 path = "../volatile_cell"
 
 [dependencies]
+syntaxext_lint = "*"

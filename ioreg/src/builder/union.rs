@@ -124,7 +124,7 @@ impl<'a, 'b> BuildUnionTypes<'a, 'b> {
     let mut field_path = path.clone();
     field_path.push(reg.name.node.clone());
     ast::StructField {
-      span: DUMMY_SP,
+      span: reg.name.span,
       ident: Some(self.cx.ident_of(reg.name.node.as_str())),
       vis: ast::Visibility::Public,
       id: ast::DUMMY_NODE_ID,
@@ -134,6 +134,8 @@ impl<'a, 'b> BuildUnionTypes<'a, 'b> {
   }
 
   /// Build field for padding or a register
+  // Dummy spans are allowed here since u8 doesn't come from anywhere
+  #[allow(dummy_span)]
   fn build_pad_or_reg(&self, path: &Vec<String>, reg_or_pad: RegOrPadding,
                       index: usize) -> ast::StructField {
     match reg_or_pad {
