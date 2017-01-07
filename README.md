@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/hackndev/zinc.svg)](https://travis-ci.org/hackndev/zinc)
 [![irc](https://img.shields.io/badge/irc-%23zinc-lightgrey.svg)](https://kiwiirc.com/client/irc.mozilla.org?chan=#zinc)
-[![Stories in Ready](https://badge.waffle.io/hackndev/zinc.png?label=ready&title=Ready)](https://waffle.io/hackndev/zinc)
+[![Waffle.io](https://img.shields.io/waffle/label/hackndev/zinc/ready.svg)](https://waffle.io/hackndev/zinc)
+[![Waffle.io](https://img.shields.io/waffle/label/hackndev/zinc/in%20progress.svg)](https://waffle.io/hackndev/zinc)
 Zinc, the bare metal stack for rust
 ===================================
 
