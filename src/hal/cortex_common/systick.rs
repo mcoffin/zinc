@@ -80,6 +80,15 @@ pub fn tick() -> bool {
   get_reg().csr.countflag()
 }
 
+/// Waits for a given number of ticks
+pub fn wait_ticks(mut ticks: u32) {
+  tick();
+  while ticks > 0 {
+    wait_for!(tick());
+    ticks -= 1;
+  }
+}
+
 #[allow(dead_code)]
 mod reg {
   use volatile_cell::VolatileCell;
